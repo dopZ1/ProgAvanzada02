@@ -35,7 +35,7 @@ namespace ProgAvanzada02
             }
         }
 
-        public static void ReadProducto()
+        public static void ReadProductos()
         {
             if (NotNull())
             {
@@ -66,6 +66,7 @@ namespace ProgAvanzada02
                 Console.WriteLine("Producto Modificado!\n");
             }
         }
+
         public static void DeleteProducto(int id)
         {
             if(NotNull())
