@@ -37,7 +37,7 @@ namespace ProgAvanzada02
 
         public static void ReadProductos()
         {
-            if (NotNull())
+            if (NotEmpty())
             {
                 foreach (var p in productos)
                 {
@@ -48,7 +48,7 @@ namespace ProgAvanzada02
 
         public static void UpdateProducto(int id, string nombre, string descripcion, double precio)
         {
-            if (NotNull())
+            if (NotEmpty())
             {
                 foreach (var p in productos)
                 {
@@ -69,7 +69,7 @@ namespace ProgAvanzada02
 
         public static void DeleteProducto(int id)
         {
-            if(NotNull())
+            if(NotEmpty())
             {
                 if (IdExists(id))
                 {
@@ -101,7 +101,7 @@ namespace ProgAvanzada02
             return false;
         }
 
-        protected static bool NotNull()
+        protected static bool NotEmpty()
         {
             if (productos.Count > 0)
             {
