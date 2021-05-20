@@ -11,18 +11,19 @@ namespace ProgAvanzada02
             int option;
             bool o = false;
 
-            Producto.AddProducto(10, "Frugele Amarillo", "Frugele sabor Platano", 50, 1000);
-            Producto.AddProducto(20, "Frugele Rojo", "Frugele sabor Frambuesa", 50, 1000);
-            Producto.AddProducto(30, "Frugele Naranjo", "Frugele sabor Damasco", 50, 1000);
-            Producto.AddProducto(40, "Frugele Morado", "Frugele sabor Guinda", 50, 1000);
-            Producto.AddProducto(50, "Frugele Verde Oscuro", "Frugele sabor Manzana", 50, 1000);
-            Producto.AddProducto(50, "Frugele Verde Claro", "Frugele sabor Lima Limon", 50, 1000);
+            Producto.CreateProducto(10, "Frugele Amarillo", "Frugele sabor Platano", 50, 1000);
+            Producto.CreateProducto(20, "Frugele Rojo", "Frugele sabor Frambuesa", 60, 1000);
+            Producto.CreateProducto(30, "Frugele Naranjo", "Frugele sabor Damasco", 40, 1000);
+            Producto.CreateProducto(40, "Frugele Morado", "Frugele sabor Guinda", 45, 1000);
+            Producto.CreateProducto(50, "Frugele Verde Oscuro", "Frugele sabor Manzana", 55, 1000);
+            Producto.CreateProducto(60, "Frugele Verde Claro", "Frugele sabor Lima Limon", 40, 1000);
 
             //1 = Admin || 2 = Cliente
-            Persona.AddUsuario(10, "Diego", "Pavez", 1, "Apoquindo 666", 1);
-            Persona.AddUsuario(20, "Natalia", "Aguilera", 2, "Apoquindo 666", 2);
+            Usuario.CreateUser(10, "Diego", "Pavez", 1, "Apoquindo 666", 1);
+            Usuario.CreateUser(20, "Natalia", "Aguilera", 2, "Apoquindo 666", 2);
 
             Console.Clear();
+
             try
             {
                 while (!o)
@@ -43,10 +44,17 @@ namespace ProgAvanzada02
                         "\n7. Eliminar Cliente" +
                         "\n8. Listar Clientes" +
                         "\n______________________________________" +
-                        "\nExtra:" +
+                        "\nCarrito:" +
                         "\n______________________________________" +
-                        "\n9. Calcular Total de Compra" +
-                        "\n10. Salir...");
+                        "\n9. Agregar a Carrito" +
+                        "\n10. Eliminar del Carrito" +
+                        "\n11. Mostrar Carrito" +
+                        "\n______________________________________" +
+                        "\nBoleta:" +
+                        "\n______________________________________" +
+                        "\n12. Generar Boleta" +
+                        "\n13. Pagar Boleta" +
+                        "\n14. Salir...");
 
                     option = Convert.ToInt32(Console.ReadLine());
                     switch (option)
@@ -65,7 +73,9 @@ namespace ProgAvanzada02
                             Console.Write("Ingrese Cantidad del Producto: ");
                             int cantidad = Convert.ToInt32(Console.ReadLine());
 
-                            Producto.AddProducto(id, nombre, descripcion, precio, cantidad);
+                            Producto.CreateProducto(id, nombre, descripcion, precio, cantidad);
+
+                            WaitInput();
                             break;
 
                         case 2:
@@ -80,82 +90,145 @@ namespace ProgAvanzada02
                             Console.Write("Ingrese Precio del Producto: ");
                             precio = Convert.ToDouble(Console.ReadLine());
 
-                            Producto.ModProducto(id, nombre, descripcion, precio);
+                            Producto.UpdateProducto(id, nombre, descripcion, precio);
+
+                            WaitInput();
                             break;
 
                         case 3:
                             Console.WriteLine("\nEliminar Producto\n______________________________________");
+
                             Console.Write("Ingrese ID del producto para Eliminar: ");
                             id = Convert.ToInt32(Console.ReadLine());
-                            Producto.DelProducto(id);
+                            Producto.DeleteProducto(id);
+
+                            WaitInput();
                             break;
 
                         case 4:
                             Console.WriteLine("\nListar Productos\n______________________________________");
-                            Producto.ListProducto();
+
+                            Producto.ReadProductos();
+
+                            WaitInput();
                             break;
 
                         case 5:
                             Console.WriteLine("\nAgregar Cliente\n______________________________________");
 
                             Console.Write("Ingrese ID del Cliente: ");
-                            int id_cl = Convert.ToInt32(Console.ReadLine());
+                            id = Convert.ToInt32(Console.ReadLine());
                             Console.Write("Ingrese Nombre del Cliente: ");
-                            string nombre_cl = Console.ReadLine().ToString();
+                            nombre = Console.ReadLine().ToString();
                             Console.Write("Ingrese Descripcion del Cliente: ");
-                            string apellido_cl = Console.ReadLine().ToString();
+                            string apellido = Console.ReadLine().ToString();
                             Console.Write("Ingrese RUT del Cliente: ");
-                            int rut_cl = Convert.ToInt32(Console.ReadLine());
+                            int rut = Convert.ToInt32(Console.ReadLine());
                             Console.Write("Ingrese Direccion del Cliente: ");
-                            string direccion_cl = Console.ReadLine().ToString();
+                            string direccion = Console.ReadLine().ToString();
                             Console.Write("Ingrese Tipo de Cliente: ");
-                            byte tipo_cl = Convert.ToByte(Console.ReadLine());
+                            byte tipo = Convert.ToByte(Console.ReadLine());
 
-                            Persona.AddUsuario(id_cl, nombre_cl, apellido_cl, rut_cl, direccion_cl, tipo_cl);
+                            Usuario.CreateUser(id, nombre, apellido, rut, direccion, tipo);
+
+                            WaitInput();
                             break;
 
                         case 6:
                             Console.WriteLine("\nModificar Cliente\n______________________________________");
 
                             Console.Write("Ingrese ID del Cliente: ");
-                            id_cl = Convert.ToInt32(Console.ReadLine());
+                            id = Convert.ToInt32(Console.ReadLine());
                             Console.Write("Ingrese Nombre del Cliente: ");
-                            nombre_cl = Console.ReadLine().ToString();
+                            nombre = Console.ReadLine().ToString();
                             Console.Write("Ingrese Apellido del Cliente: ");
-                            apellido_cl = Console.ReadLine().ToString();
+                            apellido = Console.ReadLine().ToString();
                             Console.Write("Ingrese RUT del Cliente: ");
-                            rut_cl = Convert.ToInt32(Console.ReadLine());
+                            rut = Convert.ToInt32(Console.ReadLine());
                             Console.Write("Ingrese Direccion del Cliente: ");
-                            direccion_cl = Console.ReadLine().ToString();
+                            direccion = Console.ReadLine().ToString();
                             Console.Write("Ingrese Tipo de Cliente: ");
-                            tipo_cl = Convert.ToByte(Console.ReadLine());
+                            tipo = Convert.ToByte(Console.ReadLine());
 
-                            Persona.ModUsuario(id_cl, nombre_cl, apellido_cl, rut_cl, direccion_cl, tipo_cl);
+                            Usuario.UpdateUser(id, nombre, apellido, rut, direccion, tipo);
+
+                            WaitInput();
                             break;
-
                         case 7:
                             Console.WriteLine("\nEliminar Usuario\n______________________________________");
+
                             Console.Write("Ingrese RUT del Usuario para Eliminar: ");
-                            rut_cl = Convert.ToInt32(Console.ReadLine());
-                            Persona.DelUsuario(rut_cl);
+                            rut = Convert.ToInt32(Console.ReadLine());
+                            Usuario.DeleteUser(rut);
+
+                            WaitInput();
                             break;
 
                         case 8:
                             Console.WriteLine("\nListar Usuarios\n______________________________________");
-                            Persona.ListUsuario();
+
+                            Usuario.ReadUsers();
+
+                            WaitInput();
                             break;
 
                         case 9:
-                            Console.WriteLine("\nCalcular Total\n______________________________________");
-                            Console.Write("Ingrese ID del Producto: ");
-                            int id_p = Convert.ToInt32(Console.ReadLine());
-                            Console.Write("Ingrese Cantidad deseada: ");
-                            int can_p = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("\nAgregar a Carrito\n______________________________________");
 
-                            Console.WriteLine($"Total: {Producto.CalcTotal(id_p, can_p)}");
+                            Console.Write("Ingrese ID del Producto: ");
+                            id = Convert.ToInt32(Console.ReadLine());
+                            Console.Write("Ingrese Cantidad de Producto: ");
+                            cantidad = Convert.ToInt32(Console.ReadLine());
+                            Carrito.CreateCarrito(id, cantidad);
+
+                            WaitInput();
                             break;
 
                         case 10:
+                            Console.WriteLine("\nEliminar del Carrito\n______________________________________");
+
+                            Console.Write("Ingrese ID del Producto a Eliminar: ");
+                            id = Convert.ToInt32(Console.ReadLine());
+                            Carrito.DeleteCarrito(id);
+
+                            WaitInput();
+                            break;
+
+                        case 11:
+                            Console.WriteLine("\nMostrar Carrito\n______________________________________");
+                            Carrito.ReadCarrito();
+
+                            WaitInput();
+                            break;
+
+
+                        case 12:
+                            Console.WriteLine("\nGenerar Boleta\n______________________________________");
+
+                            Console.WriteLine(Carrito.CalcTotal());
+
+                            WaitInput();
+                            break;
+
+                        case 13:
+                            Console.WriteLine("\nPagar Boleta\n______________________________________");
+                            Console.WriteLine("Tipo de Pago? [1: Efectivo | 2: Debito | 3: Credito]");
+                            int pago = Convert.ToInt32(Console.ReadLine());
+
+                            Boleta.CreatePagoAsync(pago);
+
+                            WaitInput();
+                            break;
+
+                        case 14:
+                            Console.WriteLine("\nPagar Boleta\n______________________________________");
+
+                            Console.WriteLine(Carrito.CalcTotal());
+
+                            WaitInput();
+                            break;
+
+                        case 15:
                             Console.WriteLine("Salir");
                             o = true;
                             break;
@@ -170,6 +243,15 @@ namespace ProgAvanzada02
             {
                 Console.WriteLine(e.Message);
             }
+
+
+        }            
+        
+        public static void WaitInput()
+        {
+            Console.Write("'Enter' para desplegar el Menu... ");
+            Console.ReadLine();
+            Console.Clear();
         }
     }
 }
