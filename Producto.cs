@@ -8,11 +8,11 @@ namespace ProgAvanzada02
     {
         public static List<Producto> productos = new List<Producto>();
 
-        int id { set; get; }
-        string nombre { set; get; }
-        string descripcion { set; get; }
-        double precio { set; get; }
-        int cantidad { set; get; }
+        public int id { set; get; }
+        public string nombre { set; get; }
+        public string descripcion { set; get; }
+        public double precio { set; get; }
+        public int cantidad { set; get; }
 
         public Producto(int id, string nombre, string descripcion, double precio, int cantidad)
         {
@@ -23,45 +23,31 @@ namespace ProgAvanzada02
             this.cantidad = cantidad;
         }
 
-        public static void AddProducto(int id, string nombre, string descripcion, double precio, int cantidad)
+        public static void CreateProducto(int id, string nombre, string descripcion, double precio, int cantidad)
         {
-            if (!VerificarId(id))
+            if (!IdExists(id))
             {
                 productos.Add(new Producto(id, nombre, descripcion, precio, cantidad));
                 Console.WriteLine("Producto Agregado!\n");
-            }
-            else
+            } else
             {
                 Console.WriteLine("Producto ya existe!\n");
             }
 
         }
 
-        public static void DelProducto(int id)
+        public static void ReadProducto()
         {
-            if(NotNull())
+            if (NotNull())
             {
-                if (VerificarId(id))
+                foreach (var p in productos)
                 {
-                    foreach (var prod in productos)
-                    {
-                        if (id.Equals(prod.id))
-                        {
-                            productos.Remove(prod);
-                            Console.WriteLine("Producto Eliminado!\n");
-                            break;
-                        }
-                    }
+                    Console.WriteLine($"ID: {p.id}\nNombre: {p.nombre}\nDescripcion: {p.descripcion}\nPrecio: {p.precio}\nStock: {p.cantidad}\n");
                 }
-                else
-                {
-                    Console.WriteLine("Producto no Encontrado!\n");
-                }
-
             }
         }
 
-        public static void ModProducto(int id, string nombre, string descripcion, double precio)
+        public static void UpdateProducto(int id, string nombre, string descripcion, double precio)
         {
             if (NotNull())
             {
@@ -73,8 +59,7 @@ namespace ProgAvanzada02
                         p.nombre = nombre;
                         p.descripcion = descripcion;
                         p.precio = precio;
-                    } 
-                    else
+                    } else
                     {
                         Console.WriteLine("Producto no Encontrado");
                     }
@@ -82,29 +67,30 @@ namespace ProgAvanzada02
                 Console.WriteLine("Producto Modificado!\n");
             }
         }
-
-        public static void ListProducto()
+        public static void DeleteProducto(int id)
         {
-            foreach (var p in productos)
+            if(NotNull())
             {
-                Console.WriteLine($"ID: {p.id}\nNombre: {p.nombre}\nDescripcion: {p.descripcion}\nPrecio: {p.precio}\nCantidad: {p.cantidad}\n");
+                if (IdExists(id))
+                {
+                    foreach (var prod in productos)
+                    {
+                        if (id.Equals(prod.id))
+                        {
+                            productos.Remove(prod);
+                            Console.WriteLine("Producto Eliminado!\n");
+                            break;
+                        }
+                    }
+                } else
+                {
+                    Console.WriteLine("Producto no Encontrado!\n");
+                }
+
             }
         }
 
-        protected static bool NotNull()
-        {
-            if (productos.Count > 0)
-            {
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("\nIngrese Productos Primero\n");
-                return false;
-            }
-        }
-
-        private static bool VerificarId(int id)
+        public static bool IdExists(int id)
         {
             foreach (var c in productos)
             {
@@ -114,19 +100,18 @@ namespace ProgAvanzada02
                 }
             }
             return false;
-        }
+        }        
 
-        public static double CalcTotal(int id_p, int can_p)
+        protected static bool NotNull()
         {
-            double total = 0;
-            foreach (var p in productos)
+            if (productos.Count > 0)
             {
-                if (id_p.Equals(p.id))
-                {
-                    total = p.precio;
-                }
+                return true;
+            } else
+            {
+                Console.WriteLine("\nIngrese Productos Primero\n");
+                return false;
             }
-            return total * can_p;
         }
     }
 }
