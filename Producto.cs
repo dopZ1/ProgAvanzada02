@@ -33,7 +33,6 @@ namespace ProgAvanzada02
             {
                 Console.WriteLine("Producto ya existe!\n");
             }
-
         }
 
         public static void ReadProducto()
@@ -86,7 +85,6 @@ namespace ProgAvanzada02
                 {
                     Console.WriteLine("Producto no Encontrado!\n");
                 }
-
             }
         }
 
@@ -100,7 +98,7 @@ namespace ProgAvanzada02
                 }
             }
             return false;
-        }        
+        }
 
         protected static bool NotNull()
         {
